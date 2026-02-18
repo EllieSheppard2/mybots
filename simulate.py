@@ -4,8 +4,9 @@ import pyrosim.pyrosim as pyrosim
 import time
 import numpy
 import math
+import random
 
-steps_in_sim=100
+steps_in_sim=300
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -33,7 +34,7 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = -math.pi/5.0,
+        targetPosition = random.uniform(-math.pi/2.0, math.pi/2.0),
 
         maxForce = 500)
     pyrosim.Set_Motor_For_Joint(
@@ -44,10 +45,10 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = math.pi/5.0,
+        targetPosition = random.uniform(-math.pi/2.0, math.pi/2.0),
 
         maxForce = 500)
-    time.sleep(1/120)
+    time.sleep(1/500)
 
 p.disconnect()
 
