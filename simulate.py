@@ -6,7 +6,7 @@ import numpy
 import math
 import random
 
-steps_in_sim=100
+steps_in_sim=1000
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -21,8 +21,8 @@ frontLegSensorValues = numpy.zeros(steps_in_sim)
 print(backLegSensorValues)
 
 x = numpy.linspace(0, 2*math.pi, steps_in_sim)
-targetAngles = numpy.sin(x)
-numpy.save('data/targetAngles.npy', targetAngles)
+targetAngles = (math.pi / 4.0) * numpy.sin(x)
+#numpy.save('data/targetAngles.npy', targetAngles)
 
 for i in range(steps_in_sim):
     p.stepSimulation()
