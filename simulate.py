@@ -6,7 +6,7 @@ import numpy
 import math
 import random
 
-steps_in_sim=300
+steps_in_sim=100
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -19,6 +19,10 @@ pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = numpy.zeros(steps_in_sim)
 frontLegSensorValues = numpy.zeros(steps_in_sim)
 print(backLegSensorValues)
+
+x = numpy.linspace(0, 2*math.pi, steps_in_sim)
+targetAngles = numpy.sin(x)
+numpy.save('data/targetAngles.npy', targetAngles)
 
 for i in range(steps_in_sim):
     p.stepSimulation()
@@ -34,9 +38,9 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = random.uniform(-math.pi/2.0, math.pi/2.0),
+        targetPosition = targetAngles[i],
 
-        maxForce = 500)
+    maxForce = 200)
     pyrosim.Set_Motor_For_Joint(
 
         bodyIndex = robotId,
@@ -45,9 +49,9 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = random.uniform(-math.pi/2.0, math.pi/2.0),
+        targetPosition = targetAngles[i],
 
-        maxForce = 500)
+        maxForce = 200)
     time.sleep(1/500)
 
 p.disconnect()
