@@ -26,9 +26,9 @@ for i in range(steps_in_sim):
     frontLegSensorValues[i]=frontLegTouch
     pyrosim.Set_Motor_For_Joint(
 
-        bodyIndex = ...,
+        bodyIndex = robotId,
 
-        jointName = "...",
+        jointName = b'Torso_BackLeg',
 
         controlMode = ...,
 
