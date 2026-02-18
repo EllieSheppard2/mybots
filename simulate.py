@@ -30,11 +30,11 @@ for i in range(steps_in_sim):
 
         jointName = b'Torso_BackLeg',
 
-        controlMode = ...,
+        controlMode = p.POSITION_CONTROL,
 
-        targetPosition = ...,
+        targetPosition = 0.0,
 
-        maxForce = ...)
+        maxForce = 500)
     time.sleep(1/120)
 
 p.disconnect()
