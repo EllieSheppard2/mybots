@@ -8,9 +8,11 @@ import numpy
 import math
 import random
 
-amplitude = math.pi/4
-frequency = 1
-phaseOffset = 0
+amplitudeBackLeg = math.pi / 4.0
+phaseOffsetBackLeg = 0.0
+
+amplitudeFrontLeg = math.pi / 4.0
+phaseOffsetFrontLeg = math.pi / 2.0
 
 steps_in_sim=1000
 
@@ -26,10 +28,13 @@ backLegSensorValues = numpy.zeros(steps_in_sim)
 frontLegSensorValues = numpy.zeros(steps_in_sim)
 print(backLegSensorValues)
 
-phase = numpy.linspace(0, 10 * 2*math.pi, steps_in_sim)
-targetAngles = amplitude * numpy.sin(phase)
-numpy.save('data/targetAngles.npy', targetAngles)
-exit()
+phaseBackLeg = numpy.linspace(0, 10 * 2*math.pi, steps_in_sim)
+targetAnglesBackLeg = amplitudeBackLeg * numpy.sin(phaseBackLeg + phaseOffsetBackLeg)
+
+phaseFrontLeg = numpy.linspace(0, 10 * 2*math.pi, steps_in_sim)
+targetAnglesFrontLeg = amplitudeFrontLeg * numpy.sin(phaseFrontLeg + phaseOffsetFrontLeg)
+#numpy.save('data/targetAngles.npy', targetAngles)
+#exit()
 
 for i in range(steps_in_sim):
     p.stepSimulation()
@@ -45,7 +50,7 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = targetAngles[i],
+        targetPosition = targetAnglesBackLeg[i],
 
     maxForce = 200)
     pyrosim.Set_Motor_For_Joint(
@@ -56,7 +61,7 @@ for i in range(steps_in_sim):
 
         controlMode = p.POSITION_CONTROL,
 
-        targetPosition = targetAngles[i],
+        targetPosition = targetAnglesFrontLeg[i],
 
         maxForce = 200)
     time.sleep(1/240)
