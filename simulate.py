@@ -1,10 +1,16 @@
 import pybullet as p
 import pybullet_data
+from sympy.physics.units import frequency
+
 import pyrosim.pyrosim as pyrosim
 import time
 import numpy
 import math
 import random
+
+amplitude = math.pi/4
+frequency = 1
+phaseOffset = 0
 
 steps_in_sim=1000
 
@@ -20,9 +26,10 @@ backLegSensorValues = numpy.zeros(steps_in_sim)
 frontLegSensorValues = numpy.zeros(steps_in_sim)
 print(backLegSensorValues)
 
-x = numpy.linspace(0, 2*math.pi, steps_in_sim)
-targetAngles = (math.pi / 4.0) * numpy.sin(x)
-#numpy.save('data/targetAngles.npy', targetAngles)
+phase = numpy.linspace(0, 10 * 2*math.pi, steps_in_sim)
+targetAngles = amplitude * numpy.sin(phase)
+numpy.save('data/targetAngles.npy', targetAngles)
+exit()
 
 for i in range(steps_in_sim):
     p.stepSimulation()
@@ -52,7 +59,7 @@ for i in range(steps_in_sim):
         targetPosition = targetAngles[i],
 
         maxForce = 200)
-    time.sleep(1/500)
+    time.sleep(1/240)
 
 p.disconnect()
 
