@@ -24,6 +24,17 @@ for i in range(steps_in_sim):
     frontLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
     backLegSensorValues[i]=backLegTouch
     frontLegSensorValues[i]=frontLegTouch
+    pyrosim.Set_Motor_For_Joint(
+
+        bodyIndex = ...,
+
+        jointName = "...",
+
+        controlMode = ...,
+
+        targetPosition = ...,
+
+        maxForce = ...)
     time.sleep(1/120)
 
 p.disconnect()
