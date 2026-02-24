@@ -8,11 +8,11 @@ import numpy
 import math
 import random
 
-amplitudeBackLeg = math.pi / 4.0
+amplitudeBackLeg = math.pi / 7.0
 phaseOffsetBackLeg = 0.0
 
-amplitudeFrontLeg = math.pi / 4.0
-phaseOffsetFrontLeg = math.pi / 2.0
+amplitudeFrontLeg = math.pi / 5.0
+phaseOffsetFrontLeg = math.pi / 2
 
 steps_in_sim=1000
 
