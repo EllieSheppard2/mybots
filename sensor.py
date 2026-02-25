@@ -9,3 +9,5 @@ class SENSOR:
     def Get_Value(self, step):
         touchValue = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
         self.values[step] = touchValue
+        if step == c.steps_in_sim - 1:
+            print(self.values)

@@ -4,9 +4,11 @@ import pyrosim.pyrosim as pyrosim
 import constants as c
 import numpy as np
 import time
+import robot as robot
 
 class SIMULATION:
     def __init__(self):
+        self.robot = robot
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.gravity)
@@ -24,12 +26,6 @@ class SIMULATION:
         for i in range(c.steps_in_sim):
             p.stepSimulation()
             self.robot.Sense(i)
-
-            backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-            frontLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-
-            self.backLegSensorValues[i] = backLegTouch
-            self.frontLegSensorValues[i] = frontLegTouch
 
             pyrosim.Set_Motor_For_Joint(
                 bodyIndex=self.robotId,
