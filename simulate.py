@@ -1,3 +1,4 @@
+from simulation import SIMULATION
 import pybullet as p
 import pybullet_data
 import constants as c
@@ -9,6 +10,7 @@ import numpy
 import math
 import random
 
+pass
 #amplitudeBackLeg = c.amplitude_back_leg
 #phaseOffsetBackLeg = c.phase_offset_back_leg
 
