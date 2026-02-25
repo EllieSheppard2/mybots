@@ -4,14 +4,16 @@ import pyrosim.pyrosim as pyrosim
 import constants as c
 import numpy as np
 import time
-import robot as robot
+from robot import ROBOT
+from world import WORLD
 
 class SIMULATION:
     def __init__(self):
-        self.robot = robot
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.gravity)
+        self.robot = ROBOT()
+        self.world = WORLD()
 
     def Run(self):
         self.backLegSensorValues = np.zeros(c.steps_in_sim)
@@ -28,7 +30,7 @@ class SIMULATION:
             self.robot.Sense(i)
 
             pyrosim.Set_Motor_For_Joint(
-                bodyIndex=self.robotId,
+                bodyIndex=self.robot.robotId,
                 jointName=b'Torso_BackLeg',
                 controlMode=p.POSITION_CONTROL,
                 targetPosition=self.targetAnglesBackLeg[i],
@@ -36,13 +38,13 @@ class SIMULATION:
             )
 
             pyrosim.Set_Motor_For_Joint(
-                bodyIndex=self.robotId,
+                bodyIndex=self.robot.robotId,
                 jointName=b'Torso_FrontLeg',
                 controlMode=p.POSITION_CONTROL,
                 targetPosition=self.targetAnglesFrontLeg[i],
                 maxForce=200
             )
-            time.sleep(100)
+            time.sleep(1/240)
 
         np.save("data/backLegSensorValues.npy", self.backLegSensorValues)
         np.save("data/frontLegSensorValues.npy", self.frontLegSensorValues)
