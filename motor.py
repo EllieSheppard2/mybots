@@ -1,5 +1,6 @@
 import pyrosim.pyrosim
 import pybullet as p
+import numpy as np
 
 class MOTOR:
     def __init__(self, jointName):
@@ -14,3 +15,5 @@ class MOTOR:
             targetPosition=self.motorValues[i],
             maxForce=200
         )
+    def Save_Values(self):
+        np.save("data/" + str(self.jointName) + "MotorValues.npy", self.motorValues)
