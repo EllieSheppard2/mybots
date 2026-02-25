@@ -16,22 +16,17 @@ class SIMULATION:
         self.world = WORLD()
 
     def Run(self):
-        self.backLegSensorValues = np.zeros(c.steps_in_sim)
-        self.frontLegSensorValues = np.zeros(c.steps_in_sim)
-
         phaseBackLeg = np.linspace(0, c.oscillation_range, c.steps_in_sim)
         self.targetAnglesBackLeg = c.amplitude_back_leg * np.sin(phaseBackLeg + c.phase_offset_back_leg)
 
         phaseFrontLeg = np.linspace(0, c.oscillation_range, c.steps_in_sim)
-        self.targetAnglesFrontLeg = c.amplitude_front_leg * np.sin(phaseFrontLeg + c.phase_offset_front_leg)
+        self.targetAnglesFrontLeg = c.amplitude_front_leg * np.sin(phaseFrontLeg * 0.5 + c.phase_offset_front_leg)
+
+        self.robot.motors[b'Torso_BackLeg'].motorValues = self.targetAnglesBackLeg
+        self.robot.motors[b'Torso_FrontLeg'].motorValues = self.targetAnglesFrontLeg
 
         for i in range(c.steps_in_sim):
             p.stepSimulation()
-
             self.robot.Sense(i)
             self.robot.Act(i)
-
-            time.sleep(1/240)
-
-        np.save("data/backLegSensorValues.npy", self.backLegSensorValues)
-        np.save("data/frontLegSensorValues.npy", self.frontLegSensorValues)
+            time.sleep(1/60)
