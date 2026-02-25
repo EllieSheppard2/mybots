@@ -1,7 +1,5 @@
 import math
 
-from simulate import steps_in_sim
-
 #moving leg
 amplitude_back_leg = math.pi / 7.0
 phase_offset_back_leg = 0.0
