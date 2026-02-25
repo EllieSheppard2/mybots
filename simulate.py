@@ -3,12 +3,15 @@ import pybullet as p
 import pybullet_data
 import constants as c
 from sympy.physics.units import frequency
-
 import pyrosim.pyrosim as pyrosim
 import time
 import numpy
 import math
 import random
+
+from simulation import SIMULATION
+from world import WORLD
+from robot import ROBOT
 
 pass
 #amplitudeBackLeg = c.amplitude_back_leg
@@ -19,14 +22,10 @@ pass
 
 #steps_in_sim= c.steps_in_sim
 
-#physicsClient = p.connect(p.GUI)
-#p.setAdditionalSearchPath(pybullet_data.getDataPath())
-#p.setGravity(0, 0, c.gravity)
-#planeId = p.loadURDF("plane.urdf")
-#robotId = p.loadURDF("body.urdf")
-#p.loadSDF("world.sdf")
+simulation = SIMULATION()
+world = WORLD()
+robot = ROBOT()
 
-#pyrosim.Prepare_To_Simulate(robotId)
 #backLegSensorValues = numpy.zeros(c.steps_in_sim)
 #frontLegSensorValues = numpy.zeros(c.steps_in_sim)
 #print(backLegSensorValues)
