@@ -27,23 +27,10 @@ class SIMULATION:
 
         for i in range(c.steps_in_sim):
             p.stepSimulation()
+
             self.robot.Sense(i)
+            self.robot.Act(i)
 
-            pyrosim.Set_Motor_For_Joint(
-                bodyIndex=self.robot.robotId,
-                jointName=b'Torso_BackLeg',
-                controlMode=p.POSITION_CONTROL,
-                targetPosition=self.targetAnglesBackLeg[i],
-                maxForce=c.motor_max_force
-            )
-
-            pyrosim.Set_Motor_For_Joint(
-                bodyIndex=self.robot.robotId,
-                jointName=b'Torso_FrontLeg',
-                controlMode=p.POSITION_CONTROL,
-                targetPosition=self.targetAnglesFrontLeg[i],
-                maxForce=200
-            )
             time.sleep(1/240)
 
         np.save("data/backLegSensorValues.npy", self.backLegSensorValues)
