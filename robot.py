@@ -24,3 +24,5 @@ class ROBOT:
     def Act(self, i):
         for motor in self.motors.values():
             motor.Set_Value(self, i)
+    def Think(self):
+        pass
