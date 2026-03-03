@@ -15,5 +15,3 @@ class MOTOR:
             targetPosition=desiredAngle,
             maxForce=200
         )
-    def Save_Values(self):
-        np.save("data/" + str(self.jointName) + "MotorValues.npy", self.motorValues)
