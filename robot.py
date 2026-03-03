@@ -27,4 +27,5 @@ class ROBOT:
         for motor in self.motors.values():
             motor.Set_Value(self, i)
     def Think(self):
+        self.nn.Update()
         self.nn.Print()
