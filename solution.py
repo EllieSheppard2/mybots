@@ -63,3 +63,6 @@ class SOLUTION:
         self.Create_Brain()
 
         os.system(f'"{sys.executable}" simulate.py')
+        fitnessFile = open("fitness.txt", "r")
+        self.fitness = float(fitnessFile.read())
+        fitnessFile.close()
