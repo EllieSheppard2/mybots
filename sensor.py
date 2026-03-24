@@ -12,7 +12,7 @@ class SENSOR:
         except TypeError:
             touchValue = -1.0
         self.values[step] = touchValue
-        if step == c.steps_in_sim - 1:
-            print(self.values)
+        #if step == c.steps_in_sim - 1:
+            #print(self.values)
     def Save_Values(self):
         np.save("data/" + self.linkName + "SensorValues.npy", self.values)

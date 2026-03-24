@@ -1,5 +1,6 @@
 from solution import SOLUTION
 import copy
+import constants as c
 
 class HILL_CLIMBER:
     def __init__(self):
@@ -28,4 +29,5 @@ class HILL_CLIMBER:
 
 
     def Select(self):
-        pass
+        if self.child.fitness > self.parent.fitness:
+            self.parent = self.child
