@@ -7,3 +7,4 @@ from hillclimber import HILL_CLIMBER
 #    os.system(f"{sys.executable} generate.py")
 #    os.system(f"{sys.executable} simulate.py")
 hc = HILL_CLIMBER()
+hc.Evolve()
