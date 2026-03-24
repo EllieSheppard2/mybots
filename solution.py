@@ -4,6 +4,7 @@ import os
 import sys
 import random
 
+
 class SOLUTION:
     def __init__(self):
         # 3x2 matrix of random weights scaled to [-1, +1]
@@ -57,15 +58,15 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Evaluate(self):
+    def Evaluate(self, mode = "DIRECT"):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
 
-        os.system(f'"{sys.executable}" simulate.py')
-        fitnessFile = open("fitness.txt", "r")
-        self.fitness = float(fitnessFile.read())
-        fitnessFile.close()
+        os.system(f'"{sys.executable}" simulate.py {mode}')
+
+        with open("fitness.txt", "r") as fitnessFile:
+            self.fitness = float(fitnessFile.read())
 
     def Mutate(self):
         randomRow = random.randint(0, 2)
