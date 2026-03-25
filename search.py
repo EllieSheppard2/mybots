@@ -7,4 +7,7 @@ from hillclimber import HILL_CLIMBER
 #    os.system(f"{sys.executable} generate.py")
 #    os.system(f"{sys.executable} simulate.py")
 hc = HILL_CLIMBER()
-hc.Evolve()
+print("Initial random solution:")
+hc.parent.Evaluate("GUI")
+hc.Evolve("DIRECT")
+hc.Show_Best()

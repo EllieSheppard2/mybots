@@ -32,5 +32,10 @@ class HILL_CLIMBER:
 
 
     def Select(self):
+        print(self.parent.fitness, self.child.fitness)
         if self.child.fitness > self.parent.fitness:
             self.parent = self.child
+
+    def Show_Best(self):
+        print("Showing best solution with graphics...")
+        self.parent.Evaluate(mode="GUI")

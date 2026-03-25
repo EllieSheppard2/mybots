@@ -7,7 +7,7 @@ from robot import ROBOT
 from world import WORLD
 
 class SIMULATION:
-    def __init__(self, directOrGUI="DIRECT"):
+    def __init__(self, directOrGUI):
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
