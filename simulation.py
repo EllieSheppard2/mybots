@@ -7,14 +7,14 @@ from robot import ROBOT
 from world import WORLD
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.gravity)
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
         self.world = WORLD()
 
     def Run(self):

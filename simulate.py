@@ -4,8 +4,10 @@ import time
 import pybullet as p
 import constants as c
 
-directOrGUI = sys.argv[1] if len(sys.argv) > 1 else "DIRECT"
-simulation = SIMULATION(directOrGUI)
+directOrGUI = sys.argv[1]
+solutionID = sys.argv[2]
+
+simulation = SIMULATION(directOrGUI, solutionID)
 
 for i in range(c.steps_in_sim):
     simulation.robot.Sense(i)
