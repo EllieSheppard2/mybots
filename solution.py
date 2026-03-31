@@ -137,6 +137,7 @@ class SOLUTION:
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
+        time.sleep(0.1)
 
         os.system(sys.executable + " simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
 
