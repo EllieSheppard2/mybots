@@ -58,7 +58,6 @@ class SOLUTION:
                 )
 
         pyrosim.End()
-        exit()
 
     def Start_Simulation(self, mode):
         self.Create_World()
