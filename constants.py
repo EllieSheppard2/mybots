@@ -17,3 +17,6 @@ oscillation_range = 10 * 2 * math.pi
 numberOfGenerations = 10
 
 populationSize = 10
+
+numSensorNeurons = 3
+numMotorNeurons = 2

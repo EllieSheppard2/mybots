@@ -4,6 +4,7 @@ import pyrosim.pyrosim as pyrosim
 import os
 import time
 import random
+import constants as c
 
 
 class SOLUTION:
@@ -36,27 +37,28 @@ class SOLUTION:
 
     def Create_Brain(self):
         fileName = "brain" + str(self.myID) + ".nndf"
-        pyrosim.Start_NeuralNetwork(fileName)  # ✅ FIXED
+        pyrosim.Start_NeuralNetwork(fileName)
 
-        # Sensor neurons
-        pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
-        pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
-        pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+        for i, linkName in enumerate(["Torso", "BackLeg", "FrontLeg"]):
+            pyrosim.Send_Sensor_Neuron(name=i, linkName=linkName)
 
-        # Motor neurons
-        pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+        for j, jointName in enumerate(["Torso_BackLeg", "Torso_FrontLeg"]):
+            pyrosim.Send_Motor_Neuron(
+                name=j + c.numSensorNeurons,
+                jointName=jointName
+            )
 
-        for currentRow in [0, 1, 2]:
-            for currentColumn in [0, 1]:
-                weight = self.weights[currentRow][currentColumn]
+        for i in range(c.numSensorNeurons):
+            for j in range(c.numMotorNeurons):
+                weight = self.weights[i][j]
                 pyrosim.Send_Synapse(
-                    sourceNeuronName=currentRow,
-                    targetNeuronName=currentColumn + 3,
+                    sourceNeuronName=i,
+                    targetNeuronName=j + c.numSensorNeurons,
                     weight=weight
                 )
 
         pyrosim.End()
+        exit()
 
     def Start_Simulation(self, mode):
         self.Create_World()
