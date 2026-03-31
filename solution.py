@@ -63,7 +63,7 @@ class SOLUTION:
         self.Create_Body()
         self.Create_Brain()
 
-        os.system(sys.executable + " simulate.py " + mode + " " + str(self.myID) + " &")
+        os.system(sys.executable + " simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
 
     def Wait_For_Simulation_To_End(self):
         fileName = "fitness" + str(self.myID) + ".txt"
