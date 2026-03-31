@@ -79,9 +79,9 @@ class SOLUTION:
         os.system("rm " + fileName)
 
     def Mutate(self):
-        randomRow = random.randint(0, 2)
+        randomRow = random.randint(0, c.numSensorNeurons - 1)
 
-        randomColumn = random.randint(0, 1)
+        randomColumn = random.randint(0, c.numMotorNeurons - 1)
 
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
