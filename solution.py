@@ -10,7 +10,7 @@ import constants as c
 class SOLUTION:
     def __init__(self, ID):
         self.myID = ID
-        self.weights = np.random.rand(3, 2) * 2 - 1
+        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 2 - 1
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -30,7 +30,7 @@ class SOLUTION:
 
         # Front leg
         pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg",
-                           type="revolute", position=[0, 0.5, 0], jointAxis = "1 0 0")
+                           type="revolute", position=[0, 0.5, 1], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
         pyrosim.Send_Joint(
@@ -39,12 +39,27 @@ class SOLUTION:
             child="LeftLeg",
             type="revolute",
             position=[-0.5, 0, 1],
-            jointAxis=[0, 1, 0]
+            jointAxis="0 1 0"
         )
 
         pyrosim.Send_Cube(
             name="LeftLeg",
             pos=[-0.5, 0, 0],
+            size=[1, 0.2, 0.2]
+        )
+
+        pyrosim.Send_Joint(
+            name="Torso_RightLeg",
+            parent="Torso",
+            child="RightLeg",
+            type="revolute",
+            position=[0.5, 0, 1],
+            jointAxis="0 1 0"
+        )
+
+        pyrosim.Send_Cube(
+            name="RightLeg",
+            pos=[0.5, 0, 0],
             size=[1, 0.2, 0.2]
         )
 
@@ -54,10 +69,10 @@ class SOLUTION:
         fileName = "brain" + str(self.myID) + ".nndf"
         pyrosim.Start_NeuralNetwork(fileName)
 
-        for i, linkName in enumerate(["Torso", "BackLeg", "FrontLeg"]):
+        for i, linkName in enumerate(["Torso", "BackLeg", "FrontLeg", "RightLeg", "LeftLeg" ]):
             pyrosim.Send_Sensor_Neuron(name=i, linkName=linkName)
 
-        for j, jointName in enumerate(["Torso_BackLeg", "Torso_FrontLeg"]):
+        for j, jointName in enumerate(["Torso_BackLeg", "Torso_FrontLeg", "Torso_RightLeg", "Torso_LeftLeg"]):
             pyrosim.Send_Motor_Neuron(
                 name=j + c.numSensorNeurons,
                 jointName=jointName
