@@ -5,7 +5,7 @@ import pybullet as p
 import constants as c
 
 directOrGUI = sys.argv[1]
-solutionID = sys.argv[2]
+solutionID = ""
 
 simulation = SIMULATION(directOrGUI, solutionID)
 

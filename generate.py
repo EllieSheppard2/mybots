@@ -5,6 +5,14 @@ def Create_World():
     pyrosim.Start_SDF("world.sdf")
     x,y,z = -2,0,.5
     pyrosim.Send_Cube(name="Box", pos=[x,y,z], size=[1,1,1])
+    #Adding boxes in a pattern
+    for x in range(1, 6):
+        for y in [-2, 0, 2]:
+            pyrosim.Send_Cube(
+                name=f"Box_{x}_{y}",
+                pos=[x * 2, y, 0.5],
+                size=[1, 1, 1]
+            )
     pyrosim.End()
 
 def Generate_Body():
@@ -13,12 +21,12 @@ def Generate_Body():
     pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[1, 1, 1])
 
     pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg",
-                       type="revolute", position=[-0.5, 0, 1])
+                       type="revolute", position=[-0.5, 0, 1], jointAxis= "1 0 0")
 
     pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, -0.5], size=[1, 1, 1])
 
     pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg",
-                       type="revolute", position=[0.5, 0, 1])
+                       type="revolute", position=[0.5, 0, 1], jointAxis= "1 0 0")
 
     pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[1, 1, 1])
 

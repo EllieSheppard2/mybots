@@ -4,6 +4,7 @@ from sensor import SENSOR
 from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import constants as c
 
 
 class ROBOT:
@@ -38,7 +39,14 @@ class ROBOT:
 
     def Prepare_To_Act(self):
         self.motors = {}
-        for jointName in [b'Torso_BackLeg', b'Torso_FrontLeg']:
+        for jointName in [b'Torso_BackLeg',
+        b'Torso_FrontLeg',
+        b'Torso_LeftLeg',
+        b'Torso_RightLeg',
+        b'FrontLeg_FrontLowerLeg',
+        b'BackLeg_BackLowerLeg',
+        b'LeftLeg_LeftLowerLeg',
+        b'RightLeg_RightLowerLeg',]:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self, i):

@@ -64,12 +64,27 @@ class SOLUTION:
         )
 
         pyrosim.Send_Joint(
+            name="RightLeg_RightLowerLeg",
+            parent="RightLeg",
+            child="RightLowerLeg",
+            type="revolute",
+            position=[0, 0, -1],
+            jointAxis="0 1 0"
+        )
+
+        pyrosim.Send_Cube(
+            name="RightLowerLeg",
+            pos=[0, 0, -0.5],
+            size=[0.2, 1, 0.2]
+        )
+
+        pyrosim.Send_Joint(
             name="FrontLeg_FrontLowerLeg",
             parent="FrontLeg",
             child="FrontLowerLeg",
             type="revolute",
             position=[0, 0, -1],
-            jointAxis="1 0 0"
+            jointAxis="0 1 0"
         )
 
         pyrosim.Send_Cube(
@@ -113,10 +128,10 @@ class SOLUTION:
         fileName = "brain" + str(self.myID) + ".nndf"
         pyrosim.Start_NeuralNetwork(fileName)
 
-        for i, linkName in enumerate(["Torso", "BackLeg", "FrontLeg", "RightLeg", "LeftLeg", "FrontLowerLeg", "BackLowerLeg", "FrontLowerLeg", "LeftLowerLeg" ]):
+        for i, linkName in enumerate(["Torso", "BackLeg", "FrontLeg", "RightLeg", "LeftLeg", "FrontLowerLeg", "BackLowerLeg", "FrontLowerLeg", "LeftLowerLeg", "RightLowerLeg" ]):
             pyrosim.Send_Sensor_Neuron(name=i, linkName=linkName)
 
-        for j, jointName in enumerate(["Torso_BackLeg", "Torso_FrontLeg", "Torso_RightLeg", "Torso_LeftLeg", "FrontLeg_FrontLowerLeg", "BackLeg_BackLowerLeg", "LeftLeg_LeftLowerLeg"]):
+        for j, jointName in enumerate(["Torso_BackLeg", "Torso_FrontLeg", "Torso_RightLeg", "Torso_LeftLeg", "FrontLeg_FrontLowerLeg", "BackLeg_BackLowerLeg", "LeftLeg_LeftLowerLeg", "RightLeg_RightLowerLeg"]):
             pyrosim.Send_Motor_Neuron(
                 name=j + c.numSensorNeurons,
                 jointName=jointName
@@ -139,7 +154,7 @@ class SOLUTION:
         self.Create_Brain()
         time.sleep(0.1)
 
-        os.system(sys.executable + " simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
+        os.system(sys.executable + " simulate.py " + mode + " " + str(self.myID) + " 2>&1 &")
 
     def Wait_For_Simulation_To_End(self):
         fileName = "fitness" + str(self.myID) + ".txt"
