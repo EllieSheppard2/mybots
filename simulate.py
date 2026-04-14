@@ -1,11 +1,19 @@
 from simulation import SIMULATION
+from solution import SOLUTION
 import sys
 import time
 import pybullet as p
 import constants as c
 
-directOrGUI = sys.argv[1]
-solutionID = ""
+directOrGUI = "GUI"
+
+# Generate fresh body and brain
+s = SOLUTION(0)
+s.Create_World()
+s.Create_Body()
+s.Create_Brain()
+
+solutionID = "0"
 
 simulation = SIMULATION(directOrGUI, solutionID)
 
