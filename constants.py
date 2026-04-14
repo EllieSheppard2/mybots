@@ -4,8 +4,8 @@ import math
 amplitude_back_leg = math.pi / 7.0
 phase_offset_back_leg = 0.0
 
-amplitude_front_leg = math.pi / 5.0
-phase_offset_front_leg = math.pi / 2
+amplitude_front_leg = math.pi / 50
+phase_offset_front_leg = math.pi / 20
 #settings for simulation
 
 steps_in_sim = 500
@@ -18,7 +18,7 @@ numberOfGenerations = 10
 
 populationSize = 10
 
-numSensorNeurons = 7
-numMotorNeurons = 6
+numSensorNeurons = 9
+numMotorNeurons = 8
 
 motorJointRange = 0.2
