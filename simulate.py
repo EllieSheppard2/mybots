@@ -23,7 +23,7 @@ for i in range(c.steps_in_sim):
     joint_angles = {
         "Torso_BackLeg":           np.sin(t) * amplitude,
         "Torso_FrontLeg":          np.sin(t + np.pi) * amplitude,
-        "Torso_LeftLeg":           np.sin(t) * amplitude,
+        "Torso_LeftLeg":           np.sin(t) * amplitude /2,
         "Torso_RightLeg":          np.sin(t + np.pi) * amplitude,
         "FrontLeg_FrontLowerLeg":  np.sin(t + np.pi) * amplitude,
         "BackLeg_BackLowerLeg":    np.sin(t) * amplitude,
