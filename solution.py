@@ -4,6 +4,7 @@ import pyrosim.pyrosim as pyrosim
 import random
 import time
 import constants as c
+import sys
 
 
 class SOLUTION:
@@ -17,11 +18,17 @@ class SOLUTION:
     def Evaluate(self, directOrGUI):
         pass
 
-    def Start_Simulation(self, directOrGUI):
+    def Start_Simulation(self, mode):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system('python3 simulate.py ' + directOrGUI + ' ' + str(self.myID) + ' 2&>1 &')
+
+        brainFile = "brain" + str(self.myID) + ".nndf"
+        while not os.path.exists(brainFile):
+            time.sleep(0.01)
+
+        cmd = sys.executable + " simulate.py " + mode + " " + str(self.myID)
+        os.system(cmd)  # ← removed the & so it runs synchronously
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):

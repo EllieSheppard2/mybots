@@ -13,7 +13,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF("body.urdf", basePosition=[0, 0, 2], baseOrientation=p.getQuaternionFromEuler([0, 0, 0]))
         pyrosim.Prepare_To_Simulate(self.robotId)
 
         self.Prepare_To_Sense()
@@ -49,16 +49,13 @@ class ROBOT:
         self.nn.Update()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
-        yCoordinateOfLinkZero = positionOfLinkZero[1]
+        basePosition = p.getBasePositionAndOrientation(self.robotId)[0]
+        xPosition = basePosition[0]
+        fitness = -xPosition
 
-        # Penalize drifting sideways off path
-        fitness = xCoordinateOfLinkZero - abs(yCoordinateOfLinkZero) * 0.5
-
-        f = open('tmp' + str(self.solutionID) + '.txt', 'w')
-        f.write(str(xCoordinateOfLinkZero))
-        f.close()
-        os.system('mv tmp' + str(self.solutionID) + '.txt fitness' + str(self.solutionID) + '.txt')
+        tmpFile = "tmp" + self.solutionID + ".txt"
+        finalFile = "fitness" + self.solutionID + ".txt"
+        with open(tmpFile, "w") as f:
+            f.write(str(fitness))
+        os.rename(tmpFile, finalFile)
 

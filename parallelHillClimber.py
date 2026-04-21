@@ -18,11 +18,9 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
 
     def Evaluate(self, solutions):
-        for key in solutions:
-            solutions[key].Start_Simulation("DIRECT")
-
-        for key in solutions:
-            solutions[key].Wait_For_Simulation_To_End()
+        for solution in solutions.values():
+            solution.Start_Simulation("DIRECT")
+            solution.Wait_For_Simulation_To_End()
 
     def Mutate(self):
         for key in self.children:

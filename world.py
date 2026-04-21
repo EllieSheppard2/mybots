@@ -9,4 +9,4 @@ class WORLD:
             p.createMultiBody(baseMass=0,
                               baseCollisionShapeIndex=colShape,
                               baseVisualShapeIndex=visShape,
-                              basePosition=[x * 3, 0, 0.5])
+                              basePosition=[-(x * 2), 0, 0.5])
