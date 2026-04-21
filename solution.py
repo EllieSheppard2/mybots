@@ -112,9 +112,11 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
-        randomRow = random.randint(0, c.numSensorNeurons - 1)
-        randomColumn = random.randint(0, c.numMotorNeurons - 1)
-        self.weights[randomRow][randomColumn] = random.random() * 2 - 1
+        # Mutate 20% of weights each generation
+        for i in range(c.numSensorNeurons):
+            for j in range(c.numMotorNeurons):
+                if random.random() < 0.2:
+                    self.weights[i][j] = random.random() * 2 - 1
 
     def Set_ID(self, id):
         self.myID = id

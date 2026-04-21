@@ -14,7 +14,7 @@ motor_max_force = 200
 sleep_time = .01
 oscillation_range = 10 * 2 * math.pi
 
-numberOfGenerations = 10
+numberOfGenerations = 50
 
 populationSize = 10
 

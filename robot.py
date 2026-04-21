@@ -38,14 +38,12 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
 
-    def Act(self, t, robot):
+    def Act(self, i):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
-
-                motor = self.motors[jointName]
-                motor.Set_Value(desiredAngle, robot, self.robotId)
+                self.motors[jointName.encode("utf-8")].Set_Value(self, desiredAngle)
 
     def Think(self):
         self.nn.Update()
@@ -54,6 +52,10 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
+        yCoordinateOfLinkZero = positionOfLinkZero[1]
+
+        # Penalize drifting sideways off path
+        fitness = xCoordinateOfLinkZero - abs(yCoordinateOfLinkZero) * 0.5
 
         f = open('tmp' + str(self.solutionID) + '.txt', 'w')
         f.write(str(xCoordinateOfLinkZero))
