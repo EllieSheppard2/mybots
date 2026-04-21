@@ -55,5 +55,8 @@ class PARALLEL_HILL_CLIMBER:
         print()
 
     def Show_Best(self):
-        best = min(self.parents, key=lambda k: self.parents[k].fitness)
-        self.parents[best].Start_Simulation("GUI")
+        bestKey = max(self.parents, key=lambda k: self.parents[k].fitness)
+        print(f"\nBest fitness: {self.parents[bestKey].fitness:.4f}")
+        self.parents[bestKey].Save("best_weights.npy")  # ← save weights
+        self.parents[bestKey].Start_Simulation("GUI")
+        self.parents[bestKey].Wait_For_Simulation_To_End()

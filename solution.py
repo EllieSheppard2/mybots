@@ -127,3 +127,9 @@ class SOLUTION:
 
     def Set_ID(self, id):
         self.myID = id
+
+    def Save(self, filename):
+        np.save(filename, self.weights)
+
+    def Load(self, filename):
+        self.weights = np.load(filename)
