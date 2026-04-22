@@ -5,6 +5,8 @@ import random
 import time
 import constants as c
 import sys
+import numpy as np
+
 
 
 class SOLUTION:
