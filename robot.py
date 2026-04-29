@@ -13,14 +13,17 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
-        self.robotId = p.loadURDF("body.urdf", basePosition=[0, 0, 1.5], baseOrientation=p.getQuaternionFromEuler([0, 0, 0]))
+        self.robotId = p.loadURDF("body.urdf", basePosition=[0, 0, 0.5],
+                                  baseOrientation=p.getQuaternionFromEuler([0, 0, 0]))
         pyrosim.Prepare_To_Simulate(self.robotId)
 
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brain" + str(self.solutionID) + ".nndf")
+        self.startX = None
 
         os.system('rm brain' + str(self.solutionID) + '.nndf')
+
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -51,7 +54,7 @@ class ROBOT:
     def Get_Fitness(self):
         basePosition = p.getBasePositionAndOrientation(self.robotId)[0]
         xPosition = basePosition[0]
-        fitness = -xPosition
+        fitness = xPosition
 
         tmpFile = "tmp" + self.solutionID + ".txt"
         finalFile = "fitness" + self.solutionID + ".txt"

@@ -10,12 +10,9 @@ import numpy as np
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
-        self.myID = nextAvailableID
-        self.weights = numpy.array(
-            [[numpy.random.rand() for i in range(c.numMotorNeurons)] for j in range(c.numSensorNeurons)]
-        )
-        self.weights = (self.weights * 2) - 1
+    def __init__(self, ID):
+        self.myID = ID
+        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 4 - 2
 
     def Evaluate(self, directOrGUI):
         pass
@@ -87,11 +84,11 @@ class SOLUTION:
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
-        # pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
-        # pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
-        # pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
-        # pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
-        # pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
+        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
+        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
+        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
+        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
         pyrosim.Send_Sensor_Neuron(name=0, linkName="FrontLowerLeg")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLowerLeg")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="LeftLowerLeg")
@@ -121,11 +118,10 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
-        # Mutate 20% of weights each generation
         for i in range(c.numSensorNeurons):
             for j in range(c.numMotorNeurons):
-                if random.random() < 0.2:
-                    self.weights[i][j] = random.random() * 2 - 1
+                if random.random() < 0.8:
+                    self.weights[i][j] = random.random() * 4 - 2
 
     def Set_ID(self, id):
         self.myID = id

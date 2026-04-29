@@ -3,8 +3,8 @@ import random
 
 class WORLD:
     def __init__(self):
-        random.seed(42)  # ← fixed seed so blocks are same every run
-        for i in range(6):  # ← 6 blocks
+        random.seed(42)
+        for i in range(10):
             x = random.uniform(2, 10)
             y = random.uniform(-3, 3)
             colShape = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.5])

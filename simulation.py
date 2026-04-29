@@ -14,9 +14,10 @@ class SIMULATION:
             p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.gravity)
-        p.loadURDF("plane.urdf")        # ← floor
-        self.world = WORLD()            # ← blocks (before robot)
-        self.robot = ROBOT(solutionID)  # ← robot on top
+        p.loadURDF("plane.urdf")
+        p.changeDynamics(0, -1, lateralFriction=10.0)
+        self.world = WORLD()
+        self.robot = ROBOT(solutionID)
 
     def Run(self):
         for i in range(c.steps_in_sim):

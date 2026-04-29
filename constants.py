@@ -11,6 +11,8 @@ phase_offset_front_leg = math.pi / 20
 steps_in_sim = 1000
 gravity = -19.8
 motor_max_force = 200
+gravity = -9.8
+motor_max_force = 500
 sleep_time = .01
 oscillation_range = 10 * 2 * math.pi
 
