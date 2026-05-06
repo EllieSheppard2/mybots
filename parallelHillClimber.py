@@ -1,6 +1,8 @@
 import constants as c
 from solution import SOLUTION
 import copy
+import csv
+import matplotlib.pyplot as plt
 
 class PARALLEL_HILL_CLIMBER:
 
@@ -35,18 +37,36 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
 
     def Evolve(self):
+        self.fitnessHistory = []
+        self.Evaluate(self.parents)
+
         for generation in range(c.numberOfGenerations):
-            self.Evaluate(self.parents)
-
             self.Spawn()
-
             self.Mutate()
-
             self.Evaluate(self.children)
-
             self.Print()
-
             self.Select()
+
+            best = max(self.parents[k].fitness for k in self.parents)
+            self.fitnessHistory.append(-best)
+            print(f"Generation {generation} best fitness: {best:.4f}")
+
+            csvPath = "fitness_history.csv"
+            with open(csvPath, "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(["Generation", "Best Fitness"])
+                for gen, fitness in enumerate(self.fitnessHistory):
+                    writer.writerow([gen, fitness]) #note the invert in report
+
+            # Save as graph
+            plt.figure()
+            plt.plot(self.fitnessHistory)
+            plt.xlabel("Generation")
+            plt.ylabel("Best Fitness")
+            plt.title("Fitness Over Generations")
+            plt.savefig("fitness_graph.png")
+            plt.close()
+            print("Saved fitness_history.csv and fitness_graph.png")
 
     def Print(self):
         print()

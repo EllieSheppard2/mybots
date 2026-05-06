@@ -2,12 +2,12 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import os
-
 from sensor import SENSOR
 from motor import MOTOR
 import constants as c
-
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import math
+
 
 
 class ROBOT:
@@ -42,10 +42,12 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self, i):
+        t = i / 10.0
+        osc = math.sin(t)
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
+                desiredAngle = (self.nn.Get_Value_Of(neuronName) + osc) * c.motorJointRange
                 self.motors[jointName.encode("utf-8")].Set_Value(self, desiredAngle)
 
     def Think(self):
@@ -54,7 +56,7 @@ class ROBOT:
     def Get_Fitness(self):
         basePosition = p.getBasePositionAndOrientation(self.robotId)[0]
         xPosition = basePosition[0]
-        fitness = xPosition
+        fitness = -xPosition
 
         tmpFile = "tmp" + self.solutionID + ".txt"
         finalFile = "fitness" + self.solutionID + ".txt"

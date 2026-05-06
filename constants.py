@@ -9,18 +9,16 @@ phase_offset_front_leg = math.pi / 20
 #settings for simulation
 
 steps_in_sim = 1000
-gravity = -19.8
-motor_max_force = 200
 gravity = -9.8
 motor_max_force = 500
 sleep_time = .01
 oscillation_range = 10 * 2 * math.pi
 
-numberOfGenerations = 20
+numberOfGenerations = 50
 
-populationSize = 10
+populationSize = 15
 
-numSensorNeurons = 9
+numSensorNeurons = 4
 numMotorNeurons = 8
 
 motorJointRange = 2.0
